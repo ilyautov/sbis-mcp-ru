@@ -122,3 +122,6 @@ uvx sbis-mcp-ru doctor
 Маркетплейсы живут отдельно: [marketplaces-mcp-ru](https://github.com/ilyautov/marketplaces-mcp-ru).
 
 MIT. Автор [Илья Утов](https://github.com/ilyautov).
+
+Все проекты одним списком, разобранные по назначению:
+[ilyautov.github.io](https://ilyautov.github.io/).
