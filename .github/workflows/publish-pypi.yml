@@ -1,0 +1,41 @@
+name: Publish to PyPI
+
+# На каждый тег v*: собрать sdist и wheel, опубликовать через Trusted Publishing
+# (OIDC, токен в репозитории не хранится).
+#
+# Разовая настройка на стороне PyPI, ДО первого тега:
+#   pypi.org → Account → Publishing → Add a pending publisher
+#     PyPI Project Name: sbis-mcp-ru
+#     Owner:             ilyautov
+#     Repository name:   sbis-mcp-ru
+#     Workflow name:     publish-pypi.yml   <-- ровно имя этого файла
+#     Environment name:  pypi
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  pypi:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/sbis-mcp-ru
+    permissions:
+      id-token: write # обязательно для Trusted Publishing
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
