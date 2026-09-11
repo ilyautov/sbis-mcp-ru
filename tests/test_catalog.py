@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import json
 import re
+from base64 import b64encode
 from collections import Counter
 from pathlib import Path
+from urllib.parse import quote
 
 import yaml
 
