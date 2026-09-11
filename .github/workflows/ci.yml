@@ -20,14 +20,19 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: |
           python -m pip install --upgrade pip
+          # ВРЕМЕННО, снять после первой публикации ядра на PyPI: пока его там
+          # нет, зависимость не разрешается и весь прогон падает на установке.
+          pip install "schema-mcp-core @ git+https://github.com/ilyautov/schema-mcp-core@main"
           pip install -e ".[dev]"
       - run: python -m pytest tests/ -q
       - name: Сервер поднимается и отдаёт инструменты
         run: |
-          python -c "
-import asyncio
-from sbis_mcp.server import mcp
-tools = asyncio.run(mcp.list_tools())
-assert tools, 'нет инструментов'
-print(f'sbis-mcp: {len(tools)} инструментов')
-"
+          python - <<'PY'
+          import asyncio
+
+          from sbis_mcp.server import mcp
+
+          tools = asyncio.run(mcp.list_tools())
+          assert tools, "сервер поднялся, но инструментов нет"
+          print("sbis-mcp-ru:", len(tools), "инструментов")
+          PY
