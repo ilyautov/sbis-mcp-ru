@@ -66,6 +66,13 @@ def test_safety_split_matches_readme():
     assert f"**{len(rows())}** | **{c['read']}** | **{c['write']}** | **{c['destructive']}**" in text
 
 
+def test_registry_description_fits():
+    """MCP Registry отвечает 422 на описание длиннее 100 символов. Проверено
+    на собственной шкуре 11.09.2026: пять публикаций упали разом."""
+    sj = json.loads((ROOT / "server.json").read_text(encoding="utf-8"))
+    assert len(sj["description"]) <= 100, len(sj["description"])
+
+
 def test_versions_agree():
     py = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     sj = json.loads((ROOT / "server.json").read_text(encoding="utf-8"))
