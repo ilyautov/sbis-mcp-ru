@@ -1,0 +1,542 @@
+default_host: online.sbis.ru
+endpoints:
+- operation_id: sbis_spisok_dokumentov
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: read
+  summary: Возвращает список документов указанного типа
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокДокументов","params":{},"id":0}'
+- operation_id: sbis_spisok_dokumentov_po_sobytiyam
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: read
+  summary: Возвращает список документов реестров «Входящие» и «Исходящие» по событиям
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокДокументовПоСобытиям","params":{},"id":0}'
+- operation_id: sbis_prochitat_dokument
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: read
+  summary: Возвращает последнюю редакцию документа с заданным идентификатором
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПрочитатьДокумент","params":{},"id":0}'
+- operation_id: sbis_spisok_izmeneniy
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: read
+  summary: Возвращает список документов, по которым произошли изменения
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокИзменений","params":{},"id":0}'
+- operation_id: sbis_spisok_zadach
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: read
+  summary: Возвращает список задач по документам
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокЗадач","params":{},"id":0}'
+- operation_id: sbis_spisok_sluzhebnyh_etapov
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: read
+  summary: Возвращает список необработанных извещений о получении
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокСлужебныхЭтапов","params":{},"id":0}'
+- operation_id: sbis_informaciya_o_sluzhebnyh_etapah
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: read
+  summary: Возвращает список организаций, по которым нужно обработать служебные документы
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ИнформацияОСлужебныхЭтапах","params":{},"id":0}'
+- operation_id: sbis_zapisat_dokument
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Создает документ или его редакцию, обновляет реквизиты существующего
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ЗаписатьДокумент","params":{},"id":0}'
+- operation_id: sbis_zapisat_vlozhenie
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Добавляет вложение к существующему документу, заменяя старые
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ЗаписатьВложение","params":{},"id":0}'
+- operation_id: sbis_podpisat_vlozhenie
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Подписывает вложение электронной подписью
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПодписатьВложение","params":{},"id":0}'
+- operation_id: sbis_podgotovit_deystvie
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Подготавливает документ к переходу на следующий этап документооборота
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПодготовитьДействие","params":{},"id":0}'
+- operation_id: sbis_vypolnit_deystvie
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Выполняет для документа переход с выбранного этапа документооборота
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ВыполнитьДействие","params":{},"id":0}'
+- operation_id: sbis_povtorit_etap
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Повторяет этап утверждения на входящем документе
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПовторитьЭтап","params":{},"id":0}'
+- operation_id: sbis_otlozhit_sluzhebnyy_etap
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Приостанавливает возврат служебного этапа для текущей сессии
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ОтложитьСлужебныйЭтап","params":{},"id":0}'
+- operation_id: sbis_vosstanovit_dokument
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: write
+  summary: Восстанавливает помещенный в корзину документ
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ВосстановитьДокумент","params":{},"id":0}'
+- operation_id: sbis_udalit_vlozhenie
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: destructive
+  summary: Удаляет вложение документа
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.УдалитьВложение","params":{},"id":0}'
+- operation_id: sbis_udalit_dokument
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: destructive
+  summary: Помечает документ как удаленный
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.УдалитьДокумент","params":{},"id":0}'
+- operation_id: sbis_udalit_sluzhebnyy_etap
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: destructive
+  summary: Удаляет служебный этап, который клиент не может обработать
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.УдалитьСлужебныйЭтап","params":{},"id":0}'
+- operation_id: sbis_unichtozhit_dokument
+  section: documents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: documents
+  safety: destructive
+  summary: Удаляет документ без возможности восстановления
+  doc: https://saby.ru/help/integration/api/documents
+  pagination: offset
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.УничтожитьДокумент","params":{},"id":0}'
+- operation_id: sbis_autentificirovat
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: write
+  summary: Выполняет аутентификацию по логину и паролю, возвращает идентификатор сессии
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.Аутентифицировать","params":{},"id":0}'
+- operation_id: sbis_autentificirovat_po_sertifikatu
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: write
+  summary: Выполняет аутентификацию по сертификату, возвращает идентификатор сессии
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.АутентифицироватьПоСертификату","params":{},"id":0}'
+- operation_id: sbis_otpravit_kod_autentifikacii
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: write
+  summary: Генерирует код подтверждения и отправляет его на телефон сотрудника
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ОтправитьКодАутентификации","params":{},"id":0}'
+- operation_id: sbis_podtverdit_vhod
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: write
+  summary: Подтверждает вход по коду из СМС
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПодтвердитьВход","params":{},"id":0}'
+- operation_id: sbis_pereklyuchit_akkaunt
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: write
+  summary: Выполняет аутентификацию в другом аккаунте, возвращает новый идентификатор сессии
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПереключитьАккаунт","params":{},"id":0}'
+- operation_id: sbis_spisok_akkauntov
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: read
+  summary: Возвращает список доступных аккаунтов
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокАккаунтов","params":{},"id":0}'
+- operation_id: sbis_spisok_sertifikatov_dlya_autentifikacii
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: read
+  summary: Возвращает список сертификатов, пригодных для входа
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокСертификатовДляАутентификации","params":{},"id":0}'
+- operation_id: sbis_informaciya_o_tekuschem_polzovatele
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: read
+  summary: Возвращает информацию об аутентифицированном пользователе
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ИнформацияОТекущемПользователе","params":{},"id":0}'
+- operation_id: sbis_vyhod
+  section: auth
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: auth
+  safety: write
+  summary: Завершает сессию обмена данными
+  doc: https://saby.ru/help/integration/api/authentication
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.Выход","params":{},"id":0}'
+- operation_id: sbis_dobavit_polzovatelya
+  section: users
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: users
+  safety: write
+  summary: Добавляет пользователя с минимальными правами
+  doc: https://saby.ru/help/integration/api/user_reg
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ДобавитьПользователя","params":{},"id":0}'
+- operation_id: sbis_zapisat_sotrudnika
+  section: users
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: users
+  safety: write
+  summary: Создает или обновляет карточку сотрудника
+  doc: https://saby.ru/help/integration/api/user_reg
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ЗаписатьСотрудника","params":{},"id":0}'
+- operation_id: sbis_spisok_sertifikatov
+  section: signature
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: signature
+  safety: read
+  summary: Возвращает список действительных сертификатов, собственных и делегированных
+  doc: https://saby.ru/help/integration/api/signature
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокСертификатов","params":{},"id":0}'
+- operation_id: sbis_proverit_sertifikaty
+  section: signature
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: signature
+  safety: read
+  summary: Возвращает статус сертификатов
+  doc: https://saby.ru/help/integration/api/signature
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПроверитьСертификаты","params":{},"id":0}'
+- operation_id: sbis_poluchit_kod_aktivacii_sertifikata
+  section: signature
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: signature
+  safety: write
+  summary: Запрашивает отправку смс с паролем для ключа с защитой от НСД
+  doc: https://saby.ru/help/integration/api/signature
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ПолучитьКодАктивацииСертификата","params":{},"id":0}'
+- operation_id: sbis_aktivirovat_sertifikat
+  section: signature
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: signature
+  safety: write
+  summary: 'Передает код активации ключа: постоянный ПИН или одноразовый пароль'
+  doc: https://saby.ru/help/integration/api/signature
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.АктивироватьСертификат","params":{},"id":0}'
+- operation_id: sbis_informaciya_o_kontragente
+  section: counteragents
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: counteragents
+  safety: read
+  summary: Возвращает информацию о контрагенте, включая идентификатор участника ЭДО
+  doc: https://saby.ru/help/integration/api/counterparty
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ИнформацияОКонтрагенте","params":{},"id":0}'
+- operation_id: sbis_spisok_nashih_organizaciy
+  section: organizations
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: organizations
+  safety: read
+  summary: Возвращает список наших организаций и их реквизиты
+  doc: https://saby.ru/help/integration/api/partner
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокНашихОрганизаций","params":{},"id":0}'
+- operation_id: sbis_spisok_podrazdeleniy
+  section: organizations
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: organizations
+  safety: read
+  summary: Получает информацию по подразделениям в личном кабинете
+  doc: https://saby.ru/help/integration/api/partner
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СписокПодразделений","params":{},"id":0}'
+- operation_id: sbis_zapisat_podrazdelenie
+  section: organizations
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: organizations
+  safety: write
+  summary: Добавляет новое подразделение или обновляет информацию о нём
+  doc: https://saby.ru/help/integration/api/partner
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ЗаписатьПодразделение","params":{},"id":0}'
+- operation_id: sbis_get_status
+  section: poa
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: poa
+  safety: read
+  summary: Получить статус и краткие данные об МЧД из ЦПРР ФНС
+  doc: https://saby.ru/help/integration/api/powers
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"sabyMchd.GetStatus","params":{},"id":0}'
+- operation_id: sbis_get_content
+  section: poa
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: poa
+  safety: read
+  summary: Получить из реестра ФНС архив с файлом МЧД и подписью
+  doc: https://saby.ru/help/integration/api/powers
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"sabyMchd.GetContent","params":{},"id":0}'
+- operation_id: sbis_send_registration
+  section: poa
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: poa
+  safety: write
+  summary: Зарегистрировать МЧД в ЦПРР ФНС
+  doc: https://saby.ru/help/integration/api/powers
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"sabyMchd.SendRegistration","params":{},"id":0}'
+- operation_id: sbis_send_revocation
+  section: poa
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: poa
+  safety: destructive
+  summary: Аннулировать МЧД в ЦПРР ФНС
+  doc: https://saby.ru/help/integration/api/powers
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"sabyMchd.SendRevocation","params":{},"id":0}'
+- operation_id: sbis_informaciya_o_versii
+  section: service
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: service
+  safety: read
+  summary: Возвращает версию программного интерфейса и доступные возможности
+  doc: https://saby.ru/help/integration/api/service_func
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ИнформацияОВерсии","params":{},"id":0}'
+- operation_id: sbis_sformirovat_h_t_m_l_iz_x_m_l
+  section: service
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: service
+  safety: read
+  summary: Возвращает html-представление формализованного документа
+  doc: https://saby.ru/help/integration/api/service_func
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.СформироватьHTMLИзXML","params":{},"id":0}'
+- operation_id: sbis_import_nomenklatury_iz_c_m_l
+  section: service
+  method: POST
+  host: online.sbis.ru
+  path: /service/
+  scope: service
+  safety: write
+  summary: Загружает номенклатуру из файла CommerceML
+  doc: https://saby.ru/help/integration/api/service_func
+  pagination: none
+  params:
+    body: '{"jsonrpc":"2.0","method":"СБИС.ИмпортНоменклатурыИзCML","params":{},"id":0}'

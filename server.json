@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.ilyautov/sbis-mcp-ru",
+  "title": "СБИС (Saby) MCP (RU) — документы, подпись, ЭДО",
+  "description": "API СБИС (Saby) для ИИ-ассистентов: документы и этапы документооборота, подписание вложений, сертификаты и МЧД, сотрудники, контрагенты, подразделения.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/ilyautov/sbis-mcp-ru",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "sbis-mcp-ru",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SBIS_SESSION_ID",
+          "description": "Идентификатор сессии Saby (СБИС) от команды СБИС.Аутентифицировать.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
