@@ -14,6 +14,12 @@ API СБИС (Saby) для ИИ-ассистентов: документы и э
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%B8%D1%82%D1%8C-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=sbis&config=%7B%22command%22%3A%20%22uvx%22%2C%20%22args%22%3A%20%5B%22sbis-mcp-ru%22%5D%2C%20%22env%22%3A%20%7B%22SBIS_SESSION_ID%22%3A%20%22%24%7Binput%3Asbis_session_id%7D%22%7D%7D&inputs=%5B%7B%22id%22%3A%20%22sbis_session_id%22%2C%20%22type%22%3A%20%22promptString%22%2C%20%22description%22%3A%20%22%D0%98%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D1%80%20%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8%20Saby%20%28%D0%A1%D0%91%D0%98%D0%A1%29%20%D0%BE%D1%82%20%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B%20%D0%A1%D0%91%D0%98%D0%A1.%D0%90%D1%83%D1%82%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D1%86%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C.%22%2C%20%22password%22%3A%20true%7D%5D)
 [![Install in Cursor](https://img.shields.io/badge/Cursor-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%B8%D1%82%D1%8C-000000?logo=cursor&logoColor=white)](https://cursor.com/en/install-mcp?name=sbis&config=eyJjb21tYW5kIjogInV2eCIsICJhcmdzIjogWyJzYmlzLW1jcC1ydSJdLCAiZW52IjogeyJTQklTX1NFU1NJT05fSUQiOiAiIn19)
 
+<p align="center">
+  <a href="https://business-mcp-ru.aifrontier.tech/">
+    <img src="assets/social-preview.png" alt="sbis-mcp-ru: API СБИС (Saby) в ИИ-ассистенте. 45 методов, поиск метода словами, гейт безопасности перед записью" width="760">
+  </a>
+</p>
+
 Каталог собран из первоисточника (справка `saby.ru/help/integration/api`) и лежит в репозитории как
 `sbis_mcp/endpoints.yaml`: **45 методов**, из них 19 на чтение,
 21 на запись и 5 необратимых. Сервер исполняет ровно этот файл,
