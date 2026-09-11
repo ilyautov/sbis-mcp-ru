@@ -82,6 +82,43 @@ def test_versions_agree():
     assert (ROOT / "CHANGELOG.md").read_text(encoding="utf-8").count(f"[{version}]") >= 1
 
 
+def test_summaries_are_clean_text():
+    """В каталоге Диадока все 114 описаний приехали со значком ссылки из
+    документации: символ из приватной области Unicode, невидимый в браузере и
+    заметный в терминале. Он же попадал в слова и портил поиск."""
+    def unclean(text: str) -> bool:
+        return (text != text.strip()
+                or any(ord(ch) < 32 or 0xE000 <= ord(ch) <= 0xF8FF for ch in text))
+
+    dirty = [r["operation_id"] for r in rows() if unclean(str(r.get("summary", "")))]
+    assert not dirty, dirty[:5]
+
+
+def test_entities_file_ships_with_the_catalog():
+    """Карта сущностей это половина поиска и весь инструмент sbis_map. Пока
+    файла не было, map молча отдавал пустоту во всех пяти серверах."""
+    ents = yaml.safe_load((ROOT / "sbis_mcp" / "entities.yaml").read_text(encoding="utf-8"))
+    keys = {e["key"] for e in ents["entities"]}
+    sections = {r["section"] for r in rows()}
+    assert keys == sections, sections ^ keys
+    pkg_data = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert "entities.yaml" in pkg_data  # иначе файл не попадёт в колесо
+
+
+def test_live_questions_hit_the_right_method():
+    """Не внутренности ранжирования, а обещание: человек спрашивает словами, и
+    сверху стоит тот метод, который он имел в виду."""
+    from schema_mcp_core.entities import EntityIndex
+    from schema_mcp_core.registry import Catalog
+
+    idx = EntityIndex.load(ROOT / "sbis_mcp" / "entities.yaml")
+    catalog = Catalog.from_yaml(CATALOG, entities=idx)
+    for question, expected in [('список документов', 'sbis_spisok_dokumentov'), ('войти в систему', 'sbis_spisok_akkauntov'), ('сотрудники организации', 'sbis_spisok_nashih_organizaciy')]:
+        top = catalog.search(question, limit=1)
+        assert top, question
+        assert top[0].operation_id == expected, (question, top[0].operation_id)
+
+
 def test_skill_frontmatter_is_valid():
     skill = next((ROOT / "skills").glob("*/SKILL.md"))
     head = skill.read_text(encoding="utf-8").split("---")[1]

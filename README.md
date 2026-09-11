@@ -66,11 +66,25 @@ Claude Desktop, `claude_desktop_config.json`:
 
 ## Как это выглядит в чате
 
+Вы: список документов
+
 ```
-sbis_search_methods("...")   поиск метода словами, а не по имени эндпоинта
-sbis_describe_method(...)    параметры, пагинация, класс доступа
-sbis_call_method(...)        вызов; запись спрашивает подтверждение
+sbis_search_methods("список документов")
+  sbis_spisok_dokumentov               POST /service/  чтение
+  sbis_spisok_dokumentov_po_sobytiyam  POST /service/  чтение
+  sbis_spisok_izmeneniy                POST /service/  чтение
+
+sbis_describe_method("sbis_spisok_dokumentov")
+  Возвращает список документов указанного типа
+  POST online.sbis.ru/service/
+  параметры: {"jsonrpc":"2.0","method":"СБИС.СписокДокументов","params":{},"id":0}
+  класс доступа: чтение
+
+sbis_call_method("sbis_spisok_dokumentov", {})
 ```
+
+Три инструмента вместо 45 функций: агент ищет метод словами,
+читает его карточку и вызывает. Запись и необратимое спрашивают подтверждение.
 
 Что обычно просят:
 

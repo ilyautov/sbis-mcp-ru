@@ -1,0 +1,42 @@
+# Сгенерировано split.py из sections.json. Руками не править.
+entities:
+  - key: documents
+    title_ru: Документы и этапы
+    title_en: Documents
+    match: [documents]
+    synonyms: [документы, этапы, документ, накладная, акт, счет, documents]
+  - key: auth
+    title_ru: Аутентификация
+    title_en: Auth
+    match: [auth]
+    synonyms: [аутентификация, вход, войти, логин, авторизация, токен, auth]
+  - key: signature
+    title_ru: Электронная подпись
+    title_en: Signature
+    match: [signature]
+    synonyms: [электронная, подпись, подписать, сертификат, signature]
+  - key: poa
+    title_ru: МЧД
+    title_en: Poa
+    match: [poa]
+    synonyms: [мчд, доверенность, poa]
+  - key: organizations
+    title_ru: Наши организации
+    title_en: Organizations
+    match: [organizations]
+    synonyms: [наши, организации, organizations]
+  - key: service
+    title_ru: Сервисные команды
+    title_en: Service
+    match: [service]
+    synonyms: [сервисные, команды, service]
+  - key: users
+    title_ru: Сотрудники
+    title_en: Users
+    match: [users]
+    synonyms: [сотрудники, users]
+  - key: counteragents
+    title_ru: Контрагенты
+    title_en: Counteragents
+    match: [counteragents]
+    synonyms: [контрагенты, counteragents]
