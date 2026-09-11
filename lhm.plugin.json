@@ -1,0 +1,693 @@
+{
+  "identifier": "ilyautov-sbis-mcp-ru",
+  "name": "SBIS MCP (RU)",
+  "version": "0.2.0",
+  "description": "SBIS (Saby), the other main legally-binding EDI operator in Russia, in your AI assistant: documents, EDI stages, signatures, certificates. 45 methods live in a YAML catalog; the agent searches it in plain language and calls a method through three generic tools. Reads run immediately, writes and irreversible calls require confirmation. Install with uvx, keys stay on the user's machine.",
+  "author": "Ilya Utov",
+  "authorUrl": "https://github.com/ilyautov",
+  "homepage": "https://github.com/ilyautov/sbis-mcp-ru",
+  "icon": "https://raw.githubusercontent.com/ilyautov/sbis-mcp-ru/main/assets/logo.png",
+  "tags": [
+    "sbis",
+    "saby",
+    "edi",
+    "edo",
+    "e-invoicing",
+    "accounting",
+    "documents",
+    "russia"
+  ],
+  "localizations": [
+    {
+      "locale": "ru-RU",
+      "name": "СБИС MCP (RU)",
+      "description": "API СБИС (Saby) в ИИ-ассистенте: документы, этапы ЭДО, подпись, сертификаты. 45 методов живут в YAML-каталоге, агент ищет метод словами и вызывает его тремя инструментами. Запись и необратимое спрашивают подтверждение."
+    }
+  ],
+  "tools": [
+    {
+      "name": "sbis_check_auth",
+      "description": "Check whether the required credentials are present in the environment.\n\nDoes NOT reveal secret values — only reports which variables are set.\nReturns JSON: {\"ready\": bool, \"missing\": [str], \"required\": [str]}.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "title": "check_authArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "check_authOutput"
+      },
+      "annotations": {
+        "title": "SBIS check credentials",
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_list_sections",
+      "description": "List API sections and how many catalog endpoints each contains.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "title": "list_sectionsArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "list_sectionsOutput"
+      },
+      "annotations": {
+        "title": "SBIS list sections",
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_get_section",
+      "description": "List all endpoints in one section.\n\nArgs:\n    section: section name (see {svc}_list_sections), e.g. \"statistics\".\nReturns JSON list of {operation_id, method, path, safety, summary}.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "section": {
+            "title": "Section",
+            "type": "string"
+          }
+        },
+        "required": [
+          "section"
+        ],
+        "title": "get_sectionArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_sectionOutput"
+      },
+      "annotations": {
+        "title": "SBIS get section",
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_search_methods",
+      "description": "Search the endpoint catalog by keyword (works in Russian and English).\n\nArgs:\n    query: free text, e.g. \"остатки\", \"stocks\", \"update price\".\n    limit: max results (1-50).\nReturns JSON list of matching endpoints (best first).\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "limit": {
+            "default": 15,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_methodsArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "search_methodsOutput"
+      },
+      "annotations": {
+        "title": "SBIS search methods",
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_map",
+      "description": "The big picture: business entities this API covers and the go-to\nmethods for each. Call with no args to see the whole map (\"you are\nhere\"); pass entity=\"reviews\" (or stocks/prices/orders/…) to list every\nmethod of one entity. Use this before guessing — it orients you fast.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "entity": {
+            "default": "",
+            "title": "Entity",
+            "type": "string"
+          }
+        },
+        "title": "entity_mapArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "entity_mapOutput"
+      },
+      "annotations": {
+        "title": "SBIS capabilities map",
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_describe_method",
+      "description": "Return the full catalog record for one endpoint: method, host, path,\nscope, safety level, pagination style, rate limit, params and doc URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "title": "Operation Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation_id"
+        ],
+        "title": "describe_methodArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "describe_methodOutput"
+      },
+      "annotations": {
+        "title": "SBIS describe method",
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_call_method",
+      "description": "Execute one catalog endpoint by operation_id.\n\nRead endpoints run immediately. WRITE endpoints require confirm_write=true.\nDESTRUCTIVE endpoints require confirm_write=true AND\ni_understand_this_modifies_data=true (nothing is sent otherwise).\n\nArgs:\n    operation_id: id from the catalog (see {svc}_search_methods).\n    path_values: values for {placeholders} in the path.\n    query: query-string parameters.\n    body: JSON request body.\n    confirm_write: required for write/destructive operations.\n    i_understand_this_modifies_data: required for destructive operations.\nReturns JSON: {\"ok\": true, \"status\", \"data\"} or the error envelope.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "title": "Operation Id",
+            "type": "string"
+          },
+          "path_values": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Path Values"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Query"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Body"
+          },
+          "confirm_write": {
+            "default": false,
+            "title": "Confirm Write",
+            "type": "boolean"
+          },
+          "i_understand_this_modifies_data": {
+            "default": false,
+            "title": "I Understand This Modifies Data",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "operation_id"
+        ],
+        "title": "call_methodArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "call_methodOutput"
+      },
+      "annotations": {
+        "title": "SBIS call catalog method",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "sbis_call_raw",
+      "description": "Execute ANY endpoint, even ones not in the catalog (full API coverage).\n\nSafety is inferred from the HTTP verb: GET=read, POST/PUT/PATCH=write,\nDELETE=destructive. Same confirmation rules as {svc}_call_method.\n\nArgs:\n    method: HTTP verb (GET/POST/PUT/PATCH/DELETE).\n    path: full path beginning with '/', e.g. \"/api/v1/supplier/sales\".\n    host: host override; defaults to the service's default host.\n    query: query-string parameters.\n    body: JSON request body.\n    confirm_write / i_understand_this_modifies_data: confirmations.\nReturns JSON: {\"ok\": true, \"status\", \"data\"} or the error envelope.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "host": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Host"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Query"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Body"
+          },
+          "confirm_write": {
+            "default": false,
+            "title": "Confirm Write",
+            "type": "boolean"
+          },
+          "i_understand_this_modifies_data": {
+            "default": false,
+            "title": "I Understand This Modifies Data",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "method",
+          "path"
+        ],
+        "title": "call_rawArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "call_rawOutput"
+      },
+      "annotations": {
+        "title": "SBIS call raw path",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "sbis_fetch_all",
+      "description": "Auto-paginate a read endpoint and return every row in one response.\n\nHandles offset, last_id, cursor (Ozon v4/v5), page and WB lastChangeDate\nstyles. The array path is taken from the catalog automatically.\n\nArgs:\n    operation_id: a read endpoint from the catalog.\n    query / body / path_values: base parameters (cursor fields are managed).\n    items_path: override the array path (default: the endpoint's own).\n    limit: page size to request.\n    max_items: hard cap to protect context (default 10000).\nReturns JSON: {\"ok\", \"items\", \"total_fetched\", \"pages_fetched\", \"truncated\"}.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "title": "Operation Id",
+            "type": "string"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Query"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Body"
+          },
+          "path_values": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Path Values"
+          },
+          "items_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Items Path"
+          },
+          "limit": {
+            "default": 1000,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "max_items": {
+            "default": 10000,
+            "title": "Max Items",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "operation_id"
+        ],
+        "title": "fetch_all_toolArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "fetch_all_toolOutput"
+      },
+      "annotations": {
+        "title": "SBIS fetch all pages",
+        "readOnlyHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "sbis_list_cabinets",
+      "description": "List configured cabinets for this marketplace and which one is active.\n\nReturns JSON: {\"active\": str|null, \"cabinets\": [names], \"fields_needed\": [...]}.\nSecret values are never returned.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "title": "list_cabinetsArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "list_cabinetsOutput"
+      },
+      "annotations": {
+        "title": "SBIS list cabinets",
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_add_cabinet",
+      "description": "Add or update a cabinet (a named set of API credentials), from chat.\n\n⚠️ This puts the key into the chat transcript — requires\ni_understand_key_goes_to_chat=true. The terminal-free safe alternative is\nthe installer (install.py / double-click), where the key never enters chat.\n\nArgs:\n    credentials: dict with the required fields for this service\n        ({fields}). For Ozon: {{\"client_id\": \"...\", \"api_key\": \"...\"}};\n        for WB: {{\"token\": \"...\"}}.\n    name: optional label. If omitted, the cabinet is named after the real\n        shop name fetched from the marketplace (falls back to \"main\").\n    i_understand_key_goes_to_chat: must be true to proceed.\nSaved to ~/.marketplace-mcp/cabinets.json (local, chmod 600), never echoed.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "credentials": {
+            "additionalProperties": true,
+            "title": "Credentials",
+            "type": "object"
+          },
+          "name": {
+            "default": "",
+            "title": "Name",
+            "type": "string"
+          },
+          "i_understand_key_goes_to_chat": {
+            "default": false,
+            "title": "I Understand Key Goes To Chat",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "credentials"
+        ],
+        "title": "add_cabinetArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "add_cabinetOutput"
+      },
+      "annotations": {
+        "title": "SBIS add cabinet",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_set_key",
+      "description": "Change / rotate the API key from chat (e.g. the old one expired or\nleaked).\n\n⚠️ The key goes into the chat transcript — requires\ni_understand_key_goes_to_chat=true. The safe, terminal-free alternative\nis the installer, where the key never enters chat. Use a scoped key and\nrotate it in the seller cabinet if it was exposed.\n\nArgs:\n    credentials: dict with the required fields ({fields}).\n    cabinet: which cabinet to update. Default: the active one (so \"my key\n        expired\" just works). If there is none, the cabinet is named from\n        the marketplace's shop name, else \"main\".\n    i_understand_key_goes_to_chat: must be true to proceed.\nOn success the key is validated against the marketplace and the shop name\nis reported. Saved locally (chmod 600), never echoed back.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "credentials": {
+            "additionalProperties": true,
+            "title": "Credentials",
+            "type": "object"
+          },
+          "cabinet": {
+            "default": "",
+            "title": "Cabinet",
+            "type": "string"
+          },
+          "i_understand_key_goes_to_chat": {
+            "default": false,
+            "title": "I Understand Key Goes To Chat",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "credentials"
+        ],
+        "title": "set_keyArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "set_keyOutput"
+      },
+      "annotations": {
+        "title": "SBIS set / rotate key",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_use_cabinet",
+      "description": "Switch the active cabinet. Subsequent API calls use its credentials.\n\nArgs:\n    name: the cabinet to activate (see {svc}_list_cabinets).\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "use_cabinetArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "use_cabinetOutput"
+      },
+      "annotations": {
+        "title": "SBIS switch cabinet",
+        "readOnlyHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "sbis_remove_cabinet",
+      "description": "Delete a stored cabinet. If it was active, another becomes active.\n\nArgs:\n    name: the cabinet to remove.\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "remove_cabinetArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "remove_cabinetOutput"
+      },
+      "annotations": {
+        "title": "SBIS remove cabinet",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}
