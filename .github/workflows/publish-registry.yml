@@ -1,0 +1,74 @@
+name: Publish to MCP Registry
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing release tag to (re)publish, e.g. v0.1.0"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  registry:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # GitHub OIDC -> registry auth
+    steps:
+      - name: Resolve tag
+        id: tag
+        shell: bash
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          case "$TAG" in v*) ;; *) echo "not a release tag: $TAG" >&2; exit 1 ;; esac
+          echo "value=$TAG" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.tag.outputs.value }}
+          persist-credentials: false
+
+      - name: Version from tag must match pyproject and server.json
+        shell: bash
+        env:
+          TAG: ${{ steps.tag.outputs.value }}
+        run: |
+          V="${TAG#v}"
+          PY=$(sed -nE 's/^version *= *"([^"]+)"/\1/p' pyproject.toml | head -1)
+          SJ=$(python3 -c 'import json;print(json.load(open("server.json"))["version"])')
+          echo "tag=$V pyproject=$PY server.json=$SJ"
+          [ "$V" = "$PY" ] && [ "$V" = "$SJ" ] || { echo "version mismatch" >&2; exit 1; }
+
+      - name: Wait for PyPI to serve this version
+        shell: bash
+        env:
+          TAG: ${{ steps.tag.outputs.value }}
+        run: |
+          V="${TAG#v}"
+          for i in $(seq 1 30); do
+            if curl -fsS "https://pypi.org/pypi/sbis-mcp-ru/$V/json" >/dev/null; then
+              echo "PyPI has $V"; exit 0
+            fi
+            echo "PyPI does not have $V yet (attempt $i/30)"; sleep 20
+          done
+          echo "PyPI never served $V — publish-pypi.yml failed or is still running" >&2
+          exit 1
+
+      - name: Install mcp-publisher
+        run: |
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz" \
+            | tar xz mcp-publisher
+          ./mcp-publisher --help >/dev/null
+
+      - name: Login (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+
+      # Без --dry-run: в mcp-publisher 1.8.1 он всё равно публикует, и honest
+      # publish следом падает с «cannot publish duplicate version».
+      - name: Publish
+        run: ./mcp-publisher publish
