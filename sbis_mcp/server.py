@@ -20,11 +20,11 @@ from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
 
-from ru_mcp_core.client import MarketplaceClient, ServiceConfig
-from ru_mcp_core.entities import EntityIndex
-from ru_mcp_core.registry import Catalog
-from ru_mcp_core.tools import register_cabinet_tools, register_generic_tools
-from ru_mcp_core.transport import run as run_transport
+from schema_mcp_core.client import MarketplaceClient, ServiceConfig
+from schema_mcp_core.entities import EntityIndex
+from schema_mcp_core.registry import Catalog
+from schema_mcp_core.tools import register_cabinet_tools, register_generic_tools
+from schema_mcp_core.transport import run as run_transport
 
 CATALOG_PATH = Path(__file__).with_name("endpoints.yaml")
 
@@ -69,7 +69,7 @@ def cli() -> None:
 
     args = sys.argv[1:]
     if args and args[0] == "doctor":
-        from ru_mcp_core.doctor import main as doctor_main
+        from schema_mcp_core.doctor import main as doctor_main
 
         raise SystemExit(doctor_main([("sbis", "API СБИС (Saby)",
                                        "sbis_mcp.server")], args[1:], "sbis-mcp-ru"))

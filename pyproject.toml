@@ -9,7 +9,7 @@ license = "MIT"
 authors = [{ name = "Ilya Utov" }]
 dependencies = [
     # Ядро живёт отдельным пакетом: пять серверов делят его, а не копируют.
-    "ru-mcp-core>=0.1.0,<1",
+    "schema-mcp-core>=0.1.0,<1",
 ]
 
 [project.urls]
