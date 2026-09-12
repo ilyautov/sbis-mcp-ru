@@ -1,6 +1,6 @@
 [project]
 name = "sbis-mcp-ru"
-version = "0.2.0"
+version = "0.2.1"
 description = "API СБИС (Saby) для ИИ-ассистентов: документы и этапы документооборота, подписание вложений, сертификаты и МЧД, сотрудники, контрагенты, подразделения"
 keywords = ["mcp", "model-context-protocol", "sbis", "saby", "сбис", "edi", "эдо", "russia", "claude"]
 readme = "README.md"
@@ -13,6 +13,8 @@ dependencies = [
 ]
 
 [project.urls]
+Homepage = "https://business-mcp-ru.aifrontier.tech/"
+Documentation = "https://business-mcp-ru.aifrontier.tech/sbis-api.html"
 Repository = "https://github.com/ilyautov/sbis-mcp-ru"
 Issues = "https://github.com/ilyautov/sbis-mcp-ru/issues"
 Changelog = "https://github.com/ilyautov/sbis-mcp-ru/blob/main/CHANGELOG.md"
