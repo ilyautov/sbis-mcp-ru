@@ -51,7 +51,8 @@ uvx sbis-mcp-ru doctor
 показывает. Установка удалась, если в выводе есть строка с числом методов.
 
 После перезапуска клиента у агента появляются инструменты `sbis_search_methods`,
-`sbis_describe_method`, `sbis_call_method`, `sbis_map` и кабинеты. Начинать
+`sbis_describe_method`, `sbis_call_method` (чтение),
+`sbis_write_method`, `sbis_delete_method`, `sbis_map` и кабинеты. Начинать
 стоит с `sbis_map`: он показывает разделы каталога и не требует ключей.
 
 ## Что может пойти не так
