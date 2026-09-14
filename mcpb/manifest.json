@@ -1,0 +1,62 @@
+{
+  "manifest_version": "0.3",
+  "name": "sbis-mcp-ru",
+  "display_name": "СБИС (Saby): документы и ЭДО (sbis-mcp-ru)",
+  "version": "0.2.2",
+  "description": "API СБИС прямо в Claude: документы и этапы документооборота, подписание вложений, сертификаты и МЧД, сотрудники, контрагенты, подразделения.",
+  "long_description": "Подключает ассистента к API СБИС (Saby) по идентификатору сессии. Каталог из 45 методов, чтение идёт сразу, запись и необратимое действие требуют подтверждения. Идентификатор хранится локально и в чат не попадает.",
+  "author": {
+    "name": "Ilya Utov",
+    "url": "https://github.com/ilyautov"
+  },
+  "homepage": "https://business-mcp-ru.aifrontier.tech/sbis-api.html",
+  "documentation": "https://github.com/ilyautov/sbis-mcp-ru/blob/main/README.md",
+  "support": "https://github.com/ilyautov/sbis-mcp-ru/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilyautov/sbis-mcp-ru"
+  },
+  "license": "MIT",
+  "privacy_policies": [
+    "https://business-mcp-ru.aifrontier.tech/privacy.html"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "sbis",
+    "saby",
+    "сбис",
+    "edi",
+    "эдо",
+    "russia",
+    "claude"
+  ],
+  "server": {
+    "type": "python",
+    "entry_point": "server/serve.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/server/serve.py",
+        "sbis"
+      ],
+      "env": {
+        "SBIS_SESSION_ID": "${user_config.sbis_session_id}"
+      }
+    }
+  },
+  "user_config": {
+    "sbis_session_id": {
+      "type": "string",
+      "title": "Идентификатор сессии СБИС",
+      "description": "Выдаёт команда СБИС.Аутентифицировать по логину и паролю сотрудника с правами на API. Сессия живёт ограниченное время и обновляется той же командой.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "runtimes": {
+      "python": ">=3.10"
+    }
+  }
+}

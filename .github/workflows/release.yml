@@ -1,0 +1,32 @@
+name: Release
+
+# На каждый тег v*: собрать бандл .mcpb и приложить его к релизу GitHub.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+      - name: Собрать бандл для Claude Desktop (.mcpb)
+        run: python scripts/package_mcpb.py --list
+      - name: Приложить к релизу GitHub
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # На первом прогоне тега релиза ещё нет: `gh release upload` упал бы с
+        # «release not found», поэтому создаём, а на перезапусках дозаливаем.
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/*.mcpb --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" dist/*.mcpb \
+              --title "$GITHUB_REF_NAME" --generate-notes
+          fi
