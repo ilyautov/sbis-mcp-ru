@@ -34,9 +34,16 @@ def test_serve_declares_service():
 
 
 def test_serve_deps_match_pyproject():
+    """Запускатель бандла ставит зависимости сам, и список у него отдельный.
+
+    Раньше строка была вписана сюда руками, поэтому подъём версии ядра валил
+    этот тест задним числом, хотя ничего не ломалось. Сверяем два места друг с
+    другом, а не с числом в тесте.
+    """
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert "schema-mcp-core>=0.2.0,<1" in text
-    assert _load_serve().DEPS == ["schema-mcp-core>=0.2.0,<1"]
+    pinned = re.findall(r'"(schema-mcp-core[^"]*)"', text)
+    assert pinned, "в pyproject нет зависимости от schema-mcp-core"
+    assert _load_serve().DEPS == pinned
 
 
 def test_manifest_version_matches_pyproject():
