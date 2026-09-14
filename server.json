@@ -3,7 +3,7 @@
   "name": "io.github.ilyautov/sbis-mcp-ru",
   "title": "СБИС (Saby) MCP (RU) — документы, подпись, ЭДО",
   "description": "API СБИС (Saby) в ИИ-ассистенте: документы, этапы ЭДО, подпись, сертификаты",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "websiteUrl": "https://business-mcp-ru.aifrontier.tech/sbis-api.html",
   "repository": {
     "url": "https://github.com/ilyautov/sbis-mcp-ru",
@@ -14,7 +14,7 @@
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "sbis-mcp-ru",
-      "version": "0.2.2",
+      "version": "0.3.0",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"
