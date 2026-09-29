@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "sbis": {
+      "command": "python3",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/serve.py",
+        "sbis"
+      ],
+      "env": {
+        "SBIS_SESSION_ID": "${user_config.sbis_session_id}"
+      }
+    }
+  }
+}

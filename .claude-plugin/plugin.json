@@ -1,0 +1,36 @@
+{
+  "name": "sbis-mcp-ru",
+  "displayName": "SBIS Saby API (unofficial)",
+  "version": "0.3.0",
+  "description": "API СБИС прямо в Claude: документы и этапы документооборота, подписание вложений, сертификаты и МЧД, сотрудники, контрагенты, подразделения.",
+  "author": {
+    "name": "Ilya Utov",
+    "url": "https://github.com/ilyautov"
+  },
+  "homepage": "https://business-mcp-ru.aifrontier.tech/sbis-api.html",
+  "repository": "https://github.com/ilyautov/sbis-mcp-ru",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "sbis",
+    "saby",
+    "сбис",
+    "edi",
+    "эдо",
+    "russia",
+    "claude"
+  ],
+  "privacyPolicyUrl": "https://business-mcp-ru.aifrontier.tech/privacy.html",
+  "supportUrl": "https://github.com/ilyautov/sbis-mcp-ru/issues",
+  "documentationUrl": "https://github.com/ilyautov/sbis-mcp-ru#readme",
+  "userConfig": {
+    "sbis_session_id": {
+      "type": "string",
+      "title": "Идентификатор сессии СБИС",
+      "description": "Выдаёт команда СБИС.Аутентифицировать по логину и паролю сотрудника с правами на API. Сессия живёт ограниченное время и обновляется той же командой.",
+      "required": true,
+      "sensitive": true
+    }
+  }
+}
